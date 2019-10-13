@@ -32,7 +32,7 @@ int check_words(FILE *fp, hashmap_t hashtable[], char *misspelled[]) {
                 length--;
             }
             word[length] = '\0';
-	    if(length > 0){
+	    if((length > 0) && (length < LENGTH+1)){
                 if(check_word(word, hashtable) == false){
                     misspelled[num_misspelled] = malloc(sizeof(char*) * length);
                     strcpy(misspelled[num_misspelled], word);
@@ -59,6 +59,9 @@ int check_words(FILE *fp, hashmap_t hashtable[], char *misspelled[]) {
 }
 
 bool check_word(const char* word, hashmap_t hashtable[]) {
+    int length = strlen(word);
+    if(length > LENGTH)
+	    return false;
     int bucket = hash_function(word);
     node *cursor = hashtable[bucket];
     while(cursor != NULL){

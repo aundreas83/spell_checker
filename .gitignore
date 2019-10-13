@@ -1,3 +1,7 @@
 #ignore these files
 *.[oa]
-
+*.swp
+core
+dictionary.h.gch
+spell_check
+test_main

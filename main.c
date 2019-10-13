@@ -14,7 +14,7 @@
 #include <ctype.h>
 
 
-int main(){
+int mai){
     bool check = false;
     char *file_path = "/home/appsec/NYUAPPSEC/spell_checker/wordlist.txt";
     hashmap_t hashtable[HASH_SIZE];
@@ -26,5 +26,18 @@ int main(){
     printf("Number of misspeled word are %d", num_misspelled);
     for(int i = 0; misspelled[i]; i++)
         printf("\n %s",misspelled[i]);
+    
+    for (int incwrd = 0; incwrd < MAX_MISSPELLED ; incwrd++){
+      free(misspelled[incwrd]);
+    }
+    
+    for (int list = 0; list < 2000 ; list++){
+        node *new_node = hashtable[list];
+        while (new_node != NULL){
+            node *next_new_node = new_node->next;
+            free(new_node);
+            new_node = next_new_node;
+        }
+    }
     return 0;
 }
