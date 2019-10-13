@@ -26,7 +26,7 @@ int main(int argc, char *argv[]){
 	fp = fopen(argv[2], "r");
     }
     else{
-	fp = fopen("/home/appsec/NYUAPPSEC/spell_checker/test1.txt", "r");
+	fp = fopen("/home/appsec/NYUAPPSEC/spell_checker/tests/test1.txt", "r");
     }    
     char *misspelled[MAX_MISSPELLED];
     int num_misspelled = check_words(fp, hashtable, misspelled);
