@@ -4,4 +4,6 @@
 core
 dictionary.h.gch
 spell_check
+output
+main
 test_main
