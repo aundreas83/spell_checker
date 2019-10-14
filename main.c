@@ -18,16 +18,16 @@ int main(int argc, char *argv[]){
     bool test = false;
     char *file_path = "/home/appsec/NYUAPPSEC/spell_checker/wordlist.txt";
     hashmap_t hashtable[HASH_SIZE];
-    test = load_dictionary(file_path, hashtable);
     FILE *fp;
     
     if(argc > 1){
-        file_path = argv[1];
-	fp = fopen(argv[2], "r");
+        file_path = argv[2];
+	fp = fopen(argv[1], "r");
     }
     else{
 	fp = fopen("/home/appsec/NYUAPPSEC/spell_checker/tests/test1.txt", "r");
-    }    
+    }
+    test = load_dictionary(file_path, hashtable);    
     char *misspelled[MAX_MISSPELLED];
     int num_misspelled = check_words(fp, hashtable, misspelled);
     printf("Number of misspeled word are %d", num_misspelled);

@@ -17,22 +17,16 @@ START_TEST(test_check_word_buffer_overflow)
     }
 END_TEST
 
-START_TEST(test_dictionary_normal)
-{
-    hashmap_t hashtable[HASH_SIZE];
-    ck_assert(load_dictionary(TESTDICT, hashtable));
-    // Here we can test if certain words ended up in certain buckets
-    // to ensure that our load_dictionary works as intended. I leave
-    // this as an exercise.
-}
-END_TEST
-
 START_TEST(test_check_word_normal)
 {
     hashmap_t hashtable[HASH_SIZE];
     load_dictionary(DICTIONARY, hashtable);
     const char* correct_word = "Justice";
     const char* punctuation_word_2 = "pl.ace";
+    const char* punctuation_word_3 = ".place.";
+    const char* punctuation_word_4 = ".place???";
+    ck_assert(check_word(punctuation_word_4, hashtable));
+    ck_assert(check_word(punctuation_word_3, hashtable));
     ck_assert(check_word(correct_word, hashtable));
     ck_assert(!check_word(punctuation_word_2, hashtable));
     // Test here: What if a word begins and ends with "?
@@ -61,6 +55,18 @@ START_TEST(test_check_words_normal)
 }
 END_TEST
 
+START_TEST(test_check_word_spaces)
+{
+    hashmap_t hashtable[HASH_SIZE];
+    load_dictionary(DICTIONARY, hashtable);
+    const char* start_spaces = "   Justice";
+    const char* ends_spaces = "place    ";
+    ck_assert(check_word(start_spaces, hashtable));
+    ck_assert(!check_word(ends_spaces, hashtable));
+    
+}
+END_TEST
+
 Suite *
 check_word_suite(void)
 {
@@ -71,6 +77,8 @@ check_word_suite(void)
     tcase_add_test(check_word_case, test_check_word_normal);
     tcase_add_test(check_word_case, test_check_words_normal);
     tcase_add_test(check_word_case, test_check_word_buffer_overflow);
+//    tcase_add_test(check_word_case, test_dictionary_normal);
+    tcase_add_test(check_word_case, test_check_word_spaces);
     suite_add_tcase(suite, check_word_case);
 
     return suite;
